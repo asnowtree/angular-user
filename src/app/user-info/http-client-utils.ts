@@ -24,7 +24,7 @@ export class HttpClientUtils {
 //     withCredentials?: boolean;
 // }): Observable<ArrayBuffer>;
   getUserInfo() {
-    const req = this.http.get<ResponseData>("/user/user/userinfo", {
+    const req = this.http.get<ResponseData>("/u/userinfo", {
         // params?: HttpParams | {
         //     [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
         // };
