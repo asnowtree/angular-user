@@ -1,0 +1,171 @@
+<form class="example-form">
+    <!-- <mat-form-field class="example-full-width">
+      <mat-label>Company (disabled)</mat-label>
+      <input matInput disabled value="Google">
+    </mat-form-field> -->
+  
+    <table class="example-full-width" cellspacing="0">
+        <tr>
+            <td>
+                    <mat-label>头像</mat-label>
+                    <ng-container *ngIf="userInfo.avatar">
+                    <img class="avatar" id="avatar_image" src="/b/avatar?avatar_id={{userInfo.avatar}}">  
+                    </ng-container>
+                    <ng-container *ngIf="!userInfo.avatar">
+                        <img class="avatar"  id="avatar_image"  src="/avatar_default.png">  
+                        </ng-container>
+                    <!-- <ng-container *ngIf="userInfo.avatar">
+                        <img src={{userInfo.avatar}}> 
+                    </ng-container> -->
+        </td>
+            <td style="height: 5rem;">
+                <!-- <mat-form-field class="example-full-width"> -->
+                <label for="avatarfile">头像文件</label>
+                <input type="file" id="avatarFile" 
+                (change)="upAvatar()"
+                >
+                <!-- <mat-form-field class="example-full-width" *ngIf="userInfo.avatar == null" > -->
+                    <!-- (change)="upAvatar()"  -->
+                    <!-- (change)="onFileSelected($event)" -->
+                <!-- </mat-form-field> -->
+                <!-- </mat-form-field> -->
+        </td>
+          </tr>
+        <tr>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>昵称</mat-label>
+        <input matInput [(ngModel)]="userInfo.nickname" name="nickname">
+    </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>性别</mat-label>
+        <input matInput [(ngModel)]="userInfo.sex" name="sex">
+      </mat-form-field></td>
+    </tr>
+    <tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>姓氏</mat-label>
+          <input matInput [(ngModel)]="userInfo.firstname" name="firstname">
+      </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>名</mat-label>
+          <input matInput [(ngModel)]="userInfo.lastname" name="lastname">
+        </mat-form-field></td>
+      </tr>
+    <tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>出生省</mat-label>
+          <input matInput [(ngModel)]="userInfo.birthplace" name="birthplace">
+      </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>birthprovince</mat-label>
+          <input matInput [(ngModel)]="userInfo.birthprovince" name="birthprovince">
+        </mat-form-field></td>
+      </tr>
+      <tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>出生城市</mat-label>
+          <input matInput [(ngModel)]="userInfo.birthcity" name="birthcity">
+      </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>生日</mat-label>
+          <input matInput [(ngModel)]="userInfo.birthday" name="birthday">
+        </mat-form-field></td>
+      </tr>
+      <tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>详细地址</mat-label>
+          <input matInput [(ngModel)]="userInfo.address" name="address">
+      </mat-form-field></td>
+        <td><mat-form-field class="example-full-width" >
+          <mat-label>职业（行业）</mat-label>
+          <input matInput [(ngModel)]="userInfo.profession" name="profession">
+        </mat-form-field></td>
+      </tr>
+    </table>
+
+    <!-- 
+        @ApiModelProperty(value = "昵称")
+	private String nickname;
+
+	@ApiModelProperty(value = "生日")
+	private Date birthday;
+
+	@ApiModelProperty(value = "出生地区（国家）")
+	private String birthplace;
+
+	@ApiModelProperty(value = "出生省")
+	private String birthprovince;
+
+	@ApiModelProperty(value = "出生城市")
+	private String birthcity;
+
+	@ApiModelProperty(value = "姓")
+	private String firstname;
+
+	@ApiModelProperty(value = "名")
+	private String lastname;
+
+	@ApiModelProperty(value = "性别")
+	private Integer sex;
+
+	@ApiModelProperty(value = "年龄")
+	private Integer age;
+
+	@ApiModelProperty(value = "头像")
+	private String avatar;
+
+	@ApiModelProperty(value = "姓名")
+	private String name;
+
+	@ApiModelProperty(value = "国家")
+	private String country;
+
+	@ApiModelProperty(value = "城市")
+	private String city;
+
+	@ApiModelProperty(value = "详细地址")
+	private String address;
+
+	@ApiModelProperty(value = "职业（行业）")
+	private String profession;
+
+	@ApiModelProperty(value = "绑定微信")
+	private Integer bindWeixin;
+
+	@ApiModelProperty(value = "绑定github")
+	private Integer bindGithub;
+
+	@ApiModelProperty(value = "绑定手机")
+	private Integer bindPhone;
+
+	@ApiModelProperty(value = "绑定邮箱")
+	private Integer bindEmail;
+
+	@ApiModelProperty(value = "绑定苹果ID")
+	private Integer bindIphone;
+
+	@ApiModelProperty(value = "实名认证")
+	private Integer nameAuthentication;
+
+	@ApiModelProperty(value = "信誉值")
+	private String credit;
+
+	@ApiModelProperty(value = "表现发挥评分")
+	private String performanceScore;
+     -->
+  
+    <p>
+      <!-- <mat-form-field class="example-full-width">
+        <mat-label>详细地址</mat-label>
+        <textarea matInput placeholder="目前居住地址"></textarea>
+      </mat-form-field> -->
+      <!-- <mat-form-field class="example-full-width">
+        <mat-label>Address 2</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field> -->
+    </p>
+
+  </form>
+
+
+    <button  color="primary" (click)="saveUserinfo()" mat-raised-button >保存</button>
