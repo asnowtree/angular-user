@@ -10,6 +10,15 @@ import { NgModel } from '@angular/forms';
 export class HttpClientUtils {
   constructor(private http: HttpClient) { }
 
+
+  getPostRequest(url:string,data:any,headers:any){
+    let req =  this.http.post<ResponseData>(url,data, {headers:headers}).pipe(
+      catchError(this.handleError)
+    )
+    return req;
+  }
+
+
 //   get(url: string, options: {
 //     headers?: HttpHeaders | {
 //         [header: string]: string | string[];
@@ -25,10 +34,6 @@ export class HttpClientUtils {
 // }): Observable<ArrayBuffer>;
   getUserInfo() {
     const req = this.http.get<ResponseData>("/u/userinfo", {
-        // params?: HttpParams | {
-        //     [param: string]: string | number | boolean | ReadonlyArray<string | number | boolean>;
-        // };
-        // withCredentials?: boolean;
     }).pipe(
         catchError(this.handleError) // then handle the error
         );

@@ -1,171 +1,163 @@
-<form class="example-form">
-    <!-- <mat-form-field class="example-full-width">
-      <mat-label>Company (disabled)</mat-label>
-      <input matInput disabled value="Google">
-    </mat-form-field> -->
-  
-    <table class="example-full-width" cellspacing="0">
-        <tr>
-            <td>
-                    <mat-label>头像</mat-label>
-                    <ng-container *ngIf="userInfo.avatar">
-                    <img class="avatar" id="avatar_image" src="/b/avatar?avatar_id={{userInfo.avatar}}">  
-                    </ng-container>
-                    <ng-container *ngIf="!userInfo.avatar">
-                        <img class="avatar"  id="avatar_image"  src="/avatar_default.png">  
-                        </ng-container>
-                    <!-- <ng-container *ngIf="userInfo.avatar">
-                        <img src={{userInfo.avatar}}> 
-                    </ng-container> -->
-        </td>
-            <td style="height: 5rem;">
-                <!-- <mat-form-field class="example-full-width"> -->
-                <label for="avatarfile">头像文件</label>
-                <input type="file" id="avatarFile" 
-                (change)="upAvatar()"
-                >
-                <!-- <mat-form-field class="example-full-width" *ngIf="userInfo.avatar == null" > -->
-                    <!-- (change)="upAvatar()"  -->
-                    <!-- (change)="onFileSelected($event)" -->
-                <!-- </mat-form-field> -->
-                <!-- </mat-form-field> -->
-        </td>
-          </tr>
-        <tr>
-      <td><mat-form-field class="example-full-width">
-        <mat-label>昵称</mat-label>
-        <input matInput [(ngModel)]="userInfo.nickname" name="nickname">
-    </mat-form-field></td>
-      <td><mat-form-field class="example-full-width">
-        <mat-label>性别</mat-label>
-        <input matInput [(ngModel)]="userInfo.sex" name="sex">
+<div >
+
+
+<p-accordion [multiple]="false">
+  <p-toast></p-toast>
+  <p-accordionTab header="个人信息" [selected]="true">
+    <form >
+      <table class="flex-table-u"  cellspacing="0">
+        <!-- <tr>
+          <td>
+            <span>头像</span>
+            <ng-container *ngIf="userInfo.avatar">
+              <p-avatar id="p-avatar-img" image="/b/avatar/{{userInfo.avatar}}" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+            </ng-container>
+            <ng-container *ngIf="!userInfo.avatar">
+              <p-avatar image="/avatar_default.png" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+            </ng-container>
+          </td>
+          <td>
+            <p-toast></p-toast>
+            <p-fileUpload [fileLimit]="1" name="avatar" url="/u/avatar" 
+            
+            [multiple]="true" accept="image/*" [maxFileSize]="1000000"
+            [customUpload]="true" (uploadHandler)="myUploader($event)"
+            >
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                </ul>
+            </ng-template>
+            <ng-template pTemplate="content" let-files>
+              <div>上传头像.</div>
+          </ng-template>
+            </p-fileUpload>
+          </td>
+        </tr> -->
+          <tr>
+              <td>
+                      <!-- <mat-label>头像</mat-label>
+                      
+                      <ng-container *ngIf="userInfo.avatar">
+                      <img class="avatar" id="avatar_image" src="/b/avatar?avatar_id={{userInfo.avatar}}">  
+                      </ng-container>
+                      <ng-container *ngIf="!userInfo.avatar">
+                          <img class="avatar"  id="avatar_image"  src="/avatar_default.png">  
+                          </ng-container> -->
+                      <ng-container *ngIf="userInfo.avatar">
+                        <p-avatar id="p-avatar-img" image="/b/avatar/{{userInfo.avatar}}" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                      </ng-container>
+                      <ng-container *ngIf="!userInfo.avatar">
+                        <p-avatar id="p-avatar-img" image="/avatar_default.png" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                      </ng-container>
+          </td>
+              <td >
+                <div style="display: flex;flex-direction: row; flex-wrap: wrap;">
+                  <label style="display: flex;" for="avatarfile">头像图片</label>
+                  <input style="display: flex;flex: 1;" type="file"  name="avatarfile" width="auto" id="avatarFile">
+                  <button  style="display: flex;flex: 1;" mat-raised-button color="primary"  (click)="upAvatar()" aria-label="Example icon button with a menu icon" value="上传">
+                    上传
+                  </button>
+                </div>
+              </td>
+            </tr>
+          <tr>
+        <td>
+          <mat-form-field class="example-full-width">
+          <mat-label>昵称</mat-label>
+          <input matInput [(ngModel)]="userInfo.nickname" name="nickname">
       </mat-form-field></td>
-    </tr>
-    <tr>
         <td><mat-form-field class="example-full-width">
-          <mat-label>姓氏</mat-label>
-          <input matInput [(ngModel)]="userInfo.firstname" name="firstname">
-      </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>名</mat-label>
-          <input matInput [(ngModel)]="userInfo.lastname" name="lastname">
-        </mat-form-field></td>
-      </tr>
-    <tr>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>出生省</mat-label>
-          <input matInput [(ngModel)]="userInfo.birthplace" name="birthplace">
-      </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>birthprovince</mat-label>
-          <input matInput [(ngModel)]="userInfo.birthprovince" name="birthprovince">
+          <mat-label>性别</mat-label>
+            <mat-select [(ngModel)]="userInfo.sex" >
+              <mat-option [value]=0 >女</mat-option>
+              <mat-option [value]=1>男</mat-option>
+              <mat-option [value]=2>其他</mat-option>
+            </mat-select>
         </mat-form-field></td>
       </tr>
       <tr>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>出生城市</mat-label>
-          <input matInput [(ngModel)]="userInfo.birthcity" name="birthcity">
-      </mat-form-field></td>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>生日</mat-label>
-          <input matInput [(ngModel)]="userInfo.birthday" name="birthday">
+          <td><mat-form-field class="example-full-width">
+            <mat-label>姓氏</mat-label>
+            <input matInput [(ngModel)]="userInfo.firstname" name="firstname">
         </mat-form-field></td>
-      </tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>名</mat-label>
+            <input matInput [(ngModel)]="userInfo.lastname" name="lastname">
+          </mat-form-field></td>
+        </tr>
       <tr>
-        <td><mat-form-field class="example-full-width">
-          <mat-label>详细地址</mat-label>
-          <input matInput [(ngModel)]="userInfo.address" name="address">
-      </mat-form-field></td>
-        <td><mat-form-field class="example-full-width" >
-          <mat-label>职业（行业）</mat-label>
-          <input matInput [(ngModel)]="userInfo.profession" name="profession">
+          <td><mat-form-field class="example-full-width">
+            <mat-label>出生省</mat-label>
+            <input matInput [(ngModel)]="userInfo.birthplace" name="birthplace">
         </mat-form-field></td>
-      </tr>
-    </table>
-
-    <!-- 
-        @ApiModelProperty(value = "昵称")
-	private String nickname;
-
-	@ApiModelProperty(value = "生日")
-	private Date birthday;
-
-	@ApiModelProperty(value = "出生地区（国家）")
-	private String birthplace;
-
-	@ApiModelProperty(value = "出生省")
-	private String birthprovince;
-
-	@ApiModelProperty(value = "出生城市")
-	private String birthcity;
-
-	@ApiModelProperty(value = "姓")
-	private String firstname;
-
-	@ApiModelProperty(value = "名")
-	private String lastname;
-
-	@ApiModelProperty(value = "性别")
-	private Integer sex;
-
-	@ApiModelProperty(value = "年龄")
-	private Integer age;
-
-	@ApiModelProperty(value = "头像")
-	private String avatar;
-
-	@ApiModelProperty(value = "姓名")
-	private String name;
-
-	@ApiModelProperty(value = "国家")
-	private String country;
-
-	@ApiModelProperty(value = "城市")
-	private String city;
-
-	@ApiModelProperty(value = "详细地址")
-	private String address;
-
-	@ApiModelProperty(value = "职业（行业）")
-	private String profession;
-
-	@ApiModelProperty(value = "绑定微信")
-	private Integer bindWeixin;
-
-	@ApiModelProperty(value = "绑定github")
-	private Integer bindGithub;
-
-	@ApiModelProperty(value = "绑定手机")
-	private Integer bindPhone;
-
-	@ApiModelProperty(value = "绑定邮箱")
-	private Integer bindEmail;
-
-	@ApiModelProperty(value = "绑定苹果ID")
-	private Integer bindIphone;
-
-	@ApiModelProperty(value = "实名认证")
-	private Integer nameAuthentication;
-
-	@ApiModelProperty(value = "信誉值")
-	private String credit;
-
-	@ApiModelProperty(value = "表现发挥评分")
-	private String performanceScore;
-     -->
-  
-    <p>
-      <!-- <mat-form-field class="example-full-width">
-        <mat-label>详细地址</mat-label>
-        <textarea matInput placeholder="目前居住地址"></textarea>
-      </mat-form-field> -->
-      <!-- <mat-form-field class="example-full-width">
-        <mat-label>Address 2</mat-label>
-        <textarea matInput></textarea>
-      </mat-form-field> -->
-    </p>
-
-  </form>
-
-
-    <button  color="primary" (click)="saveUserinfo()" mat-raised-button >保存</button>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>birthprovince</mat-label>
+            <input matInput [(ngModel)]="userInfo.birthprovince" name="birthprovince">
+          </mat-form-field></td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>出生城市</mat-label>
+            <input matInput [(ngModel)]="userInfo.birthcity" name="birthcity">
+        </mat-form-field></td>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>生日</mat-label>
+            <input matInput [(ngModel)]="userInfo.birthday" name="birthday">
+          </mat-form-field></td>
+        </tr>
+        <tr>
+          <td><mat-form-field class="example-full-width">
+            <mat-label>详细地址</mat-label>
+            <input matInput [(ngModel)]="userInfo.address" name="address">
+        </mat-form-field></td>
+          <td><mat-form-field class="example-full-width" >
+            <mat-label>职业（行业）</mat-label>
+            <input matInput [(ngModel)]="userInfo.profession" name="profession">
+          </mat-form-field></td>
+        </tr>
+      </table>
+    </form>
+      <button  color="primary" (click)="saveUserinfo()" mat-raised-button >保存</button>
+  </p-accordionTab>
+  <p-accordionTab header="账号信息">
+    <form>
+      <h3>
+        <span>账号：</span><span>{{userInfo.name}}</span></h3>
+      <h3>修改密码</h3>  
+    <table class="flex-table-u">
+        <tr>
+          <td>
+            <mat-form-field  style="width: 100%;" >
+              <mat-label>密码</mat-label>
+              <input type="password" matInput [(ngModel)]="account.password" name="password">
+            </mat-form-field>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field style="width: 100%;">
+              <mat-label>确认密码</mat-label>
+              <input type="password" matInput [(ngModel)]="account.checkPassword" name="checkPassword">
+            </mat-form-field>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field  style="width: 100%;">
+              <mat-label>邮箱验证码</mat-label>
+              <input type="text" matInput name="emailCode">
+            </mat-form-field>
+          </td>
+          <td style="align-items: center;">
+              <button mat-raised-button  id="sendEmailCodeButton"  (click)="sendEmailCode()">发送验证码</button>
+          </td>
+        </tr>
+      </table>
+      <button  style="margin-top: 1.5rem;" color="primary" (click)="changePassword()" mat-raised-button >提交</button>
+    </form>
+    </p-accordionTab>
+</p-accordion>
+</div>

@@ -23,15 +23,31 @@ import {FormControl, Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { HttpClientUtils } from './user-info/http-client-utils';
+import { AccountComponent } from './account/account.component';
+import {AccordionModule} from 'primeng/accordion';     //accordion and accordion tab
+import {MenuItem} from 'primeng/api';                  //api
+import {SidebarModule} from 'primeng/sidebar';
+import {ButtonModule} from 'primeng/button';
+import {AvatarModule} from 'primeng/avatar';
+import {FileUploadModule} from 'primeng/fileupload';
+import {ToastModule} from 'primeng/toast';
+
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    UserInfoComponent
+    UserInfoComponent,
+    AccountComponent
   ],
   imports: [
+    ToastModule,
+    FileUploadModule,
+    AvatarModule,
+    AccordionModule,
+    ButtonModule,
     // FormControl,
     // Validators,
+    SidebarModule,
     HttpClientModule,
     FormsModule,
     MatFormFieldModule,

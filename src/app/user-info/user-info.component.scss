@@ -12,7 +12,31 @@
     padding-right: 8px;
   }
 
+  p-fileUpload {
+    width: 100%;
+  }
+  
   img.avatar{
     width: 60px;
     height: 60px;
+  }
+
+
+  .flex-table-u{
+    display: flex;
+    flex-direction: column;
+
+    tr{
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      flex-wrap: wrap;
+      td{
+        flex: 1;
+        min-inline-size: 20rem;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+      }
+    }
   }
