@@ -73,7 +73,8 @@ import {ToastModule} from 'primeng/toast';
   ],
   providers: [
     MatDatepickerModule,
-    HttpClientUtils
+    HttpClientUtils,
+    UserInfoComponent,
   ],
   bootstrap: [AppComponent]
 })

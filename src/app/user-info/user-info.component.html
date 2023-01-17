@@ -2,7 +2,7 @@
 
 
 <p-accordion [multiple]="false">
-  <p-toast></p-toast>
+  <p-toast position="center"></p-toast>
   <p-accordionTab header="个人信息" [selected]="true">
     <form >
       <table class="flex-table-u"  cellspacing="0">
@@ -44,21 +44,26 @@
                       <ng-container *ngIf="!userInfo.avatar">
                           <img class="avatar"  id="avatar_image"  src="/avatar_default.png">  
                           </ng-container> -->
-                      <ng-container *ngIf="userInfo.avatar">
-                        <p-avatar id="p-avatar-img" image="/b/avatar/{{userInfo.avatar}}" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
-                      </ng-container>
-                      <ng-container *ngIf="!userInfo.avatar">
+                          <ng-container *ngIf="userInfo.avatar">
+                            <mat-label for="p-avatar-img">头像</mat-label>
+                            <p-avatar id="p-avatar-img" image="/b/avatar/{{userInfo.avatar}}" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
+                          </ng-container>
+                          <ng-container *ngIf="!userInfo.avatar">
+                        <mat-label for="p-avatar-img">头像</mat-label>
                         <p-avatar id="p-avatar-img" image="/avatar_default.png" styleClass="mr-2" size="xlarge" shape="circle"></p-avatar>
                       </ng-container>
+                      
           </td>
-              <td >
-                <div style="display: flex;flex-direction: row; flex-wrap: wrap;">
-                  <label style="display: flex;" for="avatarfile">头像图片</label>
-                  <input style="display: flex;flex: 1;" type="file"  name="avatarfile" width="auto" id="avatarFile">
-                  <button  style="display: flex;flex: 1;" mat-raised-button color="primary"  (click)="upAvatar()" aria-label="Example icon button with a menu icon" value="上传">
-                    上传
-                  </button>
-                </div>
+              <td>
+                <div style="display: flex;flex-direction: row; flex-wrap: wrap;width: 100%;justify-content:space-evenly;align-content: end;margin-block-end: 1rem;">
+                        <!-- <label style="display: flex;" for="avatarfile">头像图片</label> -->
+                        <input type="file"  name="avatarfile"  (change)="changeInputFile()" width="auto" id="avatarFile">
+                        <button class="td-button" style="display: flex;min-width: 10rem;flex: auto;" mat-raised-button value="选择头像" id="selectFile" (click)="avatarFileClick()">选择图片</button>
+                        <button class="td-button" style="display: flex;min-width:10rem;flex: auto;" mat-raised-button color="primary"  (click)="upAvatar()" aria-label="Example icon button with a menu icon" value="上传">
+                          上传
+                        </button>
+                      </div>
+                
               </td>
             </tr>
           <tr>

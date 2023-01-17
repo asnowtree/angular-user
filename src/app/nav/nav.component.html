@@ -29,30 +29,40 @@
 
 <div class="all-page">
   <p-sidebar [(visible)]="visibleSidebar1" style="width: auto;" [baseZIndex]="10000" style="background-color: aquamarine;">
-    <h3>选项</h3>
+    <h3>菜单</h3>
     <mat-nav-list>
-    <a mat-list-item href="/userinfo/user-info">个人信息</a>
-        <a mat-list-item href="/">asnowtree-主页</a>
+    <a mat-list-item href="/userinfo/user-info">用户账号</a>
+    <a mat-list-item title="首页" href="/" style="display: flex;align-content: center;">首页<mat-icon inline="true" aria-label="Side nav toggle icon" style="font-size: 2rem; margin-block-end: -4px;" >home</mat-icon>
+      <!-- <i class="material-icons">home</i> -->
+      <!-- <mat-icon inline="true" aria-label="Side nav toggle icon" style="font-size: 2rem; " >home</mat-icon> -->
+    </a>
+        <!-- <a mat-list-item href="/">asnowtree-主页</a> -->
       </mat-nav-list>
   </p-sidebar>
   <div style="display: flex;">
-   
     <div class="panel-menu">
-      <h3>选项</h3>
+      <h3>菜单</h3>
       <mat-nav-list>
-      <a mat-list-item href="/userinfo/user-info">个人信息</a>
+      <a mat-list-item href="/userinfo/user-info">用户账号</a>
           <!-- <a mat-list-item href="/userinfo/account">账号信息</a> -->
-          <a mat-list-item href="/">asnowtree-主页</a>
+          <!-- <a mat-list-item href="/">asnowtree-主页</a> -->
+          <a mat-list-item title="首页" href="/" style="display: flex;align-content: center;">首页<mat-icon inline="true" aria-label="Side nav toggle icon" style="font-size: 2rem;margin-block-end: -4px;" >home</mat-icon>
+          </a>
+          
+          <!-- <a href="/" style="display: flex; align-content: center;flex-wrap: wrap;" title="主页" >
+                   </a> -->
         </mat-nav-list>
     </div>
     <div class="panel-content">
       <nav>
-        <div class="nav-div" >
-          <div class="nav-menu" >
-            <a class="show-display">菜单</a>
-            <mat-icon aria-label="Side nav toggle icon" class="show-hide" (click)="visibleSidebar1 = true">menu</mat-icon>
-          </div>
+        <div class="nav-div" style="align-content: center;" >
+          
           <div class="nav-title"><h2>用户信息管理</h2></div>
+          <div class="nav-menu" style="margin-inline-start: auto;" >
+            <mat-icon title="菜单" inline="true"  aria-label="Side nav toggle icon" class="show-hide" style="margin-inline-end: 0.5rem;font-size: 2rem;" (click)="visibleSidebar1 = true">menu</mat-icon>
+            <p-avatar id="p-avatar-img" image="/b/avatar/" styleClass="mr-2"  shape="circle"></p-avatar> 
+          </div>
+
         </div>
       </nav>
       <div style="overflow: auto;height: 100%;">

@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, ComponentDecorator, Injectable } from '@angular/core';
 import { HttpClientUtils } from './http-client-utils';
 import {MessageService} from 'primeng/api';
+import { Button } from 'primeng/button';
 
 
 @Component({
@@ -72,8 +73,19 @@ export class UserInfoComponent{
       
       this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
   }
-    
-upAvatar() {
+ 
+  changeInputFile(){
+    let afile = <HTMLInputElement>document.getElementById("avatarFile");
+    let file = afile.files![0];
+    let selectButtonSpan = <HTMLSpanElement>document.querySelector("#selectFile span.mdc-button__label");
+    selectButtonSpan.innerHTML = file.name;
+  }
+  avatarFileClick(){
+    var afile = document.getElementById("avatarFile");
+    afile?.click();
+  }
+
+  async upAvatar() {
   var afile = document.getElementById("avatarFile");
   // console.log(afile)
   // if(!afile) return;
@@ -81,10 +93,29 @@ upAvatar() {
   if (!files) return;
   let file = files[0];
   console.log(file.name)
-
+  
   if (file) {
-
     if(this.fileName === file.name) return;
+    if(file.size > 1024*1024) {
+      const config = {
+        file: file,
+        maxSize: 1024
+    };
+    const resizedImageFile = await resizeImage(config);
+    if(resizedImageFile){
+      console.log(resizedImageFile);
+      let newFile = blobToFile(<Blob>resizedImageFile,file.name);
+      if(newFile){
+        file = newFile;
+      }else{
+        this.messageService.add({severity: 'info', summary: '文件大小不能超过1M', detail: ''});
+        return;
+      }
+    }
+      // return;
+    }
+
+    
     this.fileName = file.name;
 
     const formData = new FormData();
@@ -203,6 +234,9 @@ changePassword(){
 fileName="";
 
 
+getThisUser():UserInfo{
+  return this.userInfo;
+}
   constructor(
     private httpClientUtils: HttpClientUtils,
     private http: HttpClient,
@@ -226,6 +260,16 @@ fileName="";
           email: this.userInfo.email,
           password: "",
           checkPassword: ""
+        }
+        if(this.userInfo.avatar){
+          let imageElement = document.querySelector("#p-avatar-img div img");
+                // let imageElement = document.getElementById("avatar_image");
+                if(imageElement){
+                  let image = (<HTMLImageElement>imageElement);
+                  if(image.src != this.userInfo.avatar){
+                    image.src = "/b/avatar/" + this.userInfo.avatar;
+                  }
+                }
         }
       }
     );
@@ -337,71 +381,72 @@ function setTimeoutButton(button:HTMLButtonElement,target:HTMLSpanElement,value:
     button.removeAttribute("disabled");
   }
 }
-// @ApiModelProperty(value = "昵称")
-	// private String nickname;
 
-	// @ApiModelProperty(value = "生日")
-	// private Date birthday;
+interface IResizeImageOptions {
+  maxSize: number;
+  file: File;
+}
 
-	// @ApiModelProperty(value = "出生地区（国家）")
-	// private String birthplace;
+const resizeImage = (settings: IResizeImageOptions) => {
+  const file = settings.file;
+  const maxSize = settings.maxSize;
+  const reader = new FileReader();
+  const image = new Image();
+  const canvas = document.createElement('canvas');
+  const dataURItoBlob = (dataURI: string) => {
+    const bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
+        atob(dataURI.split(',')[1]) :
+        unescape(dataURI.split(',')[1]);
+    const mime = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const max = bytes.length;
+    const ia = new Uint8Array(max);
+    for (var i = 0; i < max; i++) ia[i] = bytes.charCodeAt(i);
+    return new Blob([ia], {type:mime});
+  };
+  const resize = () => {
+    let width = image.width;
+    let height = image.height;
 
-	// @ApiModelProperty(value = "出生省")
-	// private String birthprovince;
+    if (width > height) {
+        if (width > maxSize) {
+            height *= maxSize / width;
+            width = maxSize;
+        }
+    } else {
+        if (height > maxSize) {
+            width *= maxSize / height;
+            height = maxSize;
+        }
+    }
 
-	// @ApiModelProperty(value = "出生城市")
-	// private String birthcity;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext('2d')!.drawImage(image, 0, 0, width, height);
+    let dataUrl = canvas.toDataURL('image/jpeg');
+    return dataURItoBlob(dataUrl);
+  };
 
-	// @ApiModelProperty(value = "姓")
-	// private String firstname;
+  return new Promise((ok, no) => {
+      if (!file.type.match(/image.*/)) {
+        no(new Error("Not an image"));
+        return;
+      }
 
-	// @ApiModelProperty(value = "名")
-	// private String lastname;
+      reader.onload = (readerEvent: any) => {
+        image.onload = () => ok(resize());
+        image.src = readerEvent.target.result;
+      };
+      reader.readAsDataURL(file);
+  })    
+};
 
-	// @ApiModelProperty(value = "性别")
-	// private Integer sex;
+const blobToFile = (theBlob: Blob, fileName:string): File => {
+  var b: any = theBlob;
+  //A Blob() is almost a File() - it's just missing the two properties below which we will add
+  b.lastModifiedDate = new Date();
+  b.name = fileName;
 
-	// @ApiModelProperty(value = "年龄")
-	// private Integer age;
-
-	// @ApiModelProperty(value = "头像")
-	// private String avatar;
-
-	// @ApiModelProperty(value = "姓名")
-	// private String name;
-
-	// @ApiModelProperty(value = "国家")
-	// private String country;
-
-	// @ApiModelProperty(value = "城市")
-	// private String city;
-
-	// @ApiModelProperty(value = "详细地址")
-	// private String address;
-
-	// @ApiModelProperty(value = "职业（行业）")
-	// private String profession;
-
-	// @ApiModelProperty(value = "绑定微信")
-	// private Integer bindWeixin;
-
-	// @ApiModelProperty(value = "绑定github")
-	// private Integer bindGithub;
-
-	// @ApiModelProperty(value = "绑定手机")
-	// private Integer bindPhone;
-
-	// @ApiModelProperty(value = "绑定邮箱")
-	// private Integer bindEmail;
-
-	// @ApiModelProperty(value = "绑定苹果ID")
-	// private Integer bindIphone;
-
-	// @ApiModelProperty(value = "实名认证")
-	// private Integer nameAuthentication;
-
-	// @ApiModelProperty(value = "信誉值")
-	// private String credit;
-
-	// @ApiModelProperty(value = "表现发挥评分")
-	// private String performanceScore;
+  //Cast to a File() type
+  var file = new File([theBlob],fileName, {lastModified: new Date().getTime()});
+  return file;
+}
